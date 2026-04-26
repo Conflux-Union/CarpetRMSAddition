@@ -9,7 +9,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import rms.carpet_rms_addition.CarpetRMSAdditionSettings;
 
+//#if MC >= 12100
+//$$ @Mixin(net.minecraft.server.network.ServerCommonNetworkHandler.class)
+//#else
 @Mixin(ServerPlayNetworkHandler.class)
+//#endif
 public abstract class ServerPlayNetworkHandlerMixin {
     @Inject(method = "sendPacket(Lnet/minecraft/network/Packet;)V", at = @At("HEAD"), cancellable = true)
     private void sendPacket(final Packet<?> packet, final CallbackInfo ci) {

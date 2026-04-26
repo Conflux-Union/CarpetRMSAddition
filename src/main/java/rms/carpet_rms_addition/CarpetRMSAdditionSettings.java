@@ -10,6 +10,7 @@ import net.minecraft.server.world.ThreadedAnvilChunkStorage;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.Spawner;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,9 @@ public final class CarpetRMSAdditionSettings {
     public static String usePortalBlacklist = "[]";
     @Rule(desc = "Stops all particle packets from being sent", category = { RMS })
     public static boolean interceptParticlePackets = false;
+    @SuppressWarnings("unused")
+    @Rule(desc = "Send a stable world identity to VoxelMap and Xaero's Map to keep maps from different worlds on the same server address, seed, mirror, or survival server separated", category = { RMS }, options = { "false", "auto" }, strict = false, validate = MapModWorldIdentityValidator.class)
+    public static String separateMapModWorlds = "false";
     //#if MC < 11802
     @Rule(desc = "Port the behavior of falling blocks from 1.18.2+", category = { RMS })
     public static boolean fallingBlockBackport = false;
@@ -148,6 +152,15 @@ public final class CarpetRMSAdditionSettings {
             skyLightLevel = parseLightLevel(newValue);
             keepSkyLightLevel = skyLightLevel == -1;
             return newValue;
+        }
+    }
+
+    private static class MapModWorldIdentityValidator extends Validator<String> {
+        @Override
+        public String validate(final ServerCommandSource source, final ParsedRule<String> currentRule, final String newValue, final String string) {
+            if (newValue.equals("false") || newValue.equals("auto")) return newValue;
+            if (newValue.isEmpty()) return null;
+            return newValue.getBytes(StandardCharsets.UTF_8).length > 255 ? null : newValue;
         }
     }
     
