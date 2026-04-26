@@ -103,6 +103,15 @@
 * 默认值：`false`
 * 选项：`false`、`trigger`、`silent`
 
+### separateMapModWorlds
+
+向 VoxelMap 和 Xaero's Map 发送稳定的世界识别 ID，避免同一个服务器地址、相同种子、镜像服或不同生存服之间共享同一份地图数据。
+
+* 默认值：`false`
+* 选项：`false`、`auto`，或自定义世界识别字符串
+* `auto`：在世界存档目录下生成并保存 `carpet-rms-addition-map-world-id.txt`
+* 自定义值不能为空，且长度不能超过 255 个 UTF-8 字节
+
 ### usePortalBlacklist
 
 黑名单上的实体将无法使用传送门。

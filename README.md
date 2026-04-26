@@ -108,6 +108,16 @@ Forces dispensers, droppers, and note blocks to check their block state when pla
 * Default value: `false`
 * Options: `false`, `trigger`, `silent`
 
+### separateMapModWorlds
+
+Sends a stable world identity to VoxelMap and Xaero's Map. This prevents map data from being shared between different
+worlds that use the same server address, identical seeds, mirror servers, or separate survival servers.
+
+* Default value: `false`
+* Options: `false`, `auto`, or a custom world identity string
+* `auto`: generates and saves a UUID in `carpet-rms-addition-map-world-id.txt` under the world save directory
+* Custom values must be non-empty and no longer than 255 UTF-8 bytes
+
 ### usePortalBlacklist
 
 A blacklist to stop entities on the list from using portals.
