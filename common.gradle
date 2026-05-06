@@ -7,6 +7,10 @@ dependencies {
     mappings "net.fabricmc:yarn:$name+build.$yarn_mappings:v2"
     modImplementation "net.fabricmc:fabric-loader:$loader_version"
     modImplementation "carpet:fabric-carpet:$carpet_core_version"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    if (mcVersion >= 12004) {
+        testImplementation "net.fabricmc:fabric-loader-junit:$loader_version"
+    }
 }
 loom {
     accessWidenerPath = file "${id}.accesswidener"
@@ -31,5 +35,9 @@ processResources {
 java {
     sourceCompatibility = javaCompatibility
     targetCompatibility = javaCompatibility
+}
+sourceSets.test.java.srcDirs = ["../../src/test/java"]
+test {
+    useJUnitPlatform()
 }
 jar { from '../../LICENSE' }
