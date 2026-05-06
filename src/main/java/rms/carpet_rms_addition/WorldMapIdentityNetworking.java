@@ -11,7 +11,7 @@ public final class WorldMapIdentityNetworking {
 
     public static boolean handleVoxelMapQuery(
         final ServerPlayerEntity player,
-        //#if MC >= 12100
+        //#if MC >= 12002
         //$$ final net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket packet
         //#else
         final net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket packet
@@ -19,7 +19,7 @@ public final class WorldMapIdentityNetworking {
     ) {
         final Identifier channel;
         final byte[] requestBytes;
-        //#if MC >= 12100
+        //#if MC >= 12002
         //$$ if (!(packet.payload() instanceof RawCustomPayload payload)) return false;
         //$$ channel = payload.channel();
         //$$ requestBytes = payload.data();
@@ -47,7 +47,7 @@ public final class WorldMapIdentityNetworking {
     }
 
     private static void send(final ServerPlayerEntity player, final Identifier channel, final byte[] bytes) {
-        //#if MC >= 12100
+        //#if MC >= 12002
         //$$ player.networkHandler.sendPacket(new net.minecraft.network.packet.s2c.common.CustomPayloadS2CPacket(new RawCustomPayload(channel, bytes)));
         //#else
         player.networkHandler.sendPacket(new net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket(channel, new PacketByteBuf(Unpooled.wrappedBuffer(bytes))));

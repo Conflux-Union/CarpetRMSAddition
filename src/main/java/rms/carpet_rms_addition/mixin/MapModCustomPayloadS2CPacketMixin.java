@@ -9,11 +9,11 @@ import rms.carpet_rms_addition.WorldMapIdentityHelper;
 
 import java.util.List;
 
-//#if MC >= 12100
+//#if MC >= 12002
 //$$ @Mixin(net.minecraft.network.packet.s2c.common.CustomPayloadS2CPacket.class)
 //#else
 @Pseudo
-@Mixin(targets = "net.minecraft.network.packet.s2c.common.CustomPayloadS2CPacket")
+@Mixin(targets = "net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket")
 //#endif
 public abstract class MapModCustomPayloadS2CPacketMixin {
     //#if MC >= 12100

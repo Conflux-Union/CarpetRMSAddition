@@ -16,7 +16,7 @@ public abstract class MapModServerPlayNetworkHandlerMixin {
 
     @Inject(method = "onCustomPayload", at = @At("HEAD"), cancellable = true)
     private void handleMapModWorldInfoQuery(
-        //#if MC >= 12100
+        //#if MC >= 12002
         //$$ final net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket packet,
         //#else
         final net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket packet,

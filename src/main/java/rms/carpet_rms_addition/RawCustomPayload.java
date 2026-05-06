@@ -4,7 +4,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
 
-//#if MC >= 12100
+//#if MC >= 12002
 //$$ public final class RawCustomPayload implements net.minecraft.network.packet.CustomPayload {
 //#else
 public final class RawCustomPayload {
@@ -24,6 +24,18 @@ public final class RawCustomPayload {
     public byte[] data() {
         return Arrays.copyOf(this.data, this.data.length);
     }
+
+    //#if MC >= 12002 && MC < 12100
+    //$$ @Override
+    //$$ public Identifier id() {
+    //$$     return this.channel;
+    //$$ }
+    //$$
+    //$$ @Override
+    //$$ public void write(final net.minecraft.network.PacketByteBuf buf) {
+    //$$     buf.writeBytes(this.data);
+    //$$ }
+    //#endif
 
     //#if MC >= 12100
     //$$ @Override
