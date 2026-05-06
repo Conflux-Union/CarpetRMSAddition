@@ -30,6 +30,7 @@ public abstract class MapModServerPlayNetworkHandlerMixin {
         final CallbackInfo ci
     ) {
         //#if MC >= 12002
+        //$$ if (!((Object)this instanceof ServerPlayNetworkHandler)) return;
         //$$ final ServerPlayerEntity player = ((ServerPlayNetworkHandler)(Object)this).player;
         //$$ if (WorldMapIdentityNetworking.handleVoxelMapQuery(player, packet)) ci.cancel();
         //#else

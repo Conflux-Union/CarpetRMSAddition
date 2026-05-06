@@ -2,16 +2,13 @@ package rms.carpet_rms_addition.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import rms.carpet_rms_addition.RawCustomPayload;
 import rms.carpet_rms_addition.WorldMapIdentityHelper;
 
 import java.util.List;
-import java.util.Map;
 import net.minecraft.util.Identifier;
 import net.minecraft.network.PacketByteBuf;
 
@@ -23,17 +20,15 @@ import net.minecraft.network.PacketByteBuf;
 //#endif
 public abstract class MapModCustomPayloadC2SPacketMixin {
     //#if MC >= 12002 && MC < 12100
-    //$$ @Shadow
-    //$$ private static Map<Identifier, PacketByteBuf.PacketReader<?>> ID_TO_READER;
-    //$$
-    //$$ @Inject(method = "<clinit>", at = @At("TAIL"))
-    //$$ private static void registerVoxelMapPayload(final CallbackInfo ci) {
+    //$$ @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;"))
+    //$$ private static com.google.common.collect.ImmutableMap addVoxelMapReader(final com.google.common.collect.ImmutableMap.Builder builder) {
     //$$     final Identifier channel = WorldMapIdentityHelper.voxelMapChannel();
-    //$$     ID_TO_READER.put(channel, (PacketByteBuf.PacketReader<RawCustomPayload>) buf -> {
+    //$$     builder.put(channel, (PacketByteBuf.PacketReader<RawCustomPayload>) buf -> {
     //$$         final byte[] bytes = new byte[buf.readableBytes()];
     //$$         buf.readBytes(bytes);
     //$$         return new RawCustomPayload(channel, bytes);
     //$$     });
+    //$$     return builder.build();
     //$$ }
     //#endif
 
