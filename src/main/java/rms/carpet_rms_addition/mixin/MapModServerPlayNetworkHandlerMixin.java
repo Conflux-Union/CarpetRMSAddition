@@ -9,10 +9,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import rms.carpet_rms_addition.WorldMapIdentityNetworking;
 
+//#if MC >= 12002
+//$$ @Mixin(net.minecraft.server.network.ServerCommonNetworkHandler.class)
+//#else
 @Mixin(ServerPlayNetworkHandler.class)
+//#endif
 public abstract class MapModServerPlayNetworkHandlerMixin {
+    //#if MC < 12002
     @Shadow
     public ServerPlayerEntity player;
+    //#endif
 
     @Inject(method = "onCustomPayload", at = @At("HEAD"), cancellable = true)
     private void handleMapModWorldInfoQuery(
@@ -23,6 +29,11 @@ public abstract class MapModServerPlayNetworkHandlerMixin {
         //#endif
         final CallbackInfo ci
     ) {
+        //#if MC >= 12002
+        //$$ final ServerPlayerEntity player = ((ServerPlayNetworkHandler)(Object)this).player;
+        //$$ if (WorldMapIdentityNetworking.handleVoxelMapQuery(player, packet)) ci.cancel();
+        //#else
         if (WorldMapIdentityNetworking.handleVoxelMapQuery(this.player, packet)) ci.cancel();
+        //#endif
     }
 }
