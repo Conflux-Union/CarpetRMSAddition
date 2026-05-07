@@ -20,10 +20,10 @@ import net.minecraft.network.PacketByteBuf;
 //#endif
 public abstract class MapModCustomPayloadC2SPacketMixin {
     //#if MC >= 12002 && MC < 12100
-    //$$ @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;"))
-    //$$ private static com.google.common.collect.ImmutableMap addVoxelMapReader(final com.google.common.collect.ImmutableMap.Builder builder) {
+    //$$ @Redirect(method = "<clinit>", remap = false, at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;"))
+    //$$ private static com.google.common.collect.ImmutableMap<Identifier, PacketByteBuf.PacketReader<?>> addVoxelMapReader(final com.google.common.collect.ImmutableMap.Builder<Identifier, PacketByteBuf.PacketReader<?>> builder) {
     //$$     final Identifier channel = WorldMapIdentityHelper.voxelMapChannel();
-    //$$     builder.put(channel, (PacketByteBuf.PacketReader<RawCustomPayload>) buf -> {
+    //$$     builder.put(channel, buf -> {
     //$$         final byte[] bytes = new byte[buf.readableBytes()];
     //$$         buf.readBytes(bytes);
     //$$         return new RawCustomPayload(channel, bytes);
